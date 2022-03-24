@@ -21,7 +21,7 @@ spent.
 - SimpleCov
 - Capybara
 - Shoulda-Matchers 
-- jsonapi-serialize
+- jsonapi-serializer
 - rspec_junit_formatter
 - Orderly
 - launchy
