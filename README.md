@@ -10,5 +10,5 @@ simplecov
 shoulda-matchers
 launchy
 orderly
-* ...
+
 # fetch_rewards_challenge
