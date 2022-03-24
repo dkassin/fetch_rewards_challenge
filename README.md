@@ -1,5 +1,5 @@
 # README
-# Fetch Reards Coding Exercise - Backend Software Engineering
+# Fetch Rewards Coding Exercise - Backend Software Engineering
 
 ## Description
 
