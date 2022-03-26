@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   @@transactions = []
+  @@point_balance = {}
   def add_transactions
     @@transactions << TransactionFacade.add_transaction(payer_params)
   end
