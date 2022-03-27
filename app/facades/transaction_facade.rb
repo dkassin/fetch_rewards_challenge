@@ -3,6 +3,23 @@ class TransactionFacade
       Transaction.new(params)
   end
 
+  def self.add_to_point_balance(transaction, balance)
+    updated_balance = balance
+    if balance.has_key?(transaction.payer)
+      updated_balance[transaction.payer] += transaction.points
+    else
+      updated_balance[transaction.payer] = transaction.points
+    end
+    return updated_balance
+  end
+
+  def self.update_balance(point_balance, spent_points)
+    spent_points.each do |key, value|
+      point_balance[key] += value
+    end
+    return point_balance
+  end
+
   def self.sort_transactions(transactions)
     transactions.sort_by {|transaction| transaction.time}
   end

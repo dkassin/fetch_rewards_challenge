@@ -2,17 +2,20 @@ class Api::V1::UsersController < ApplicationController
   @@transactions = []
   @@point_balance = {}
   def add_transactions
-    @@transactions << TransactionFacade.add_transaction(payer_params)
+    transaction = TransactionFacade.add_transaction(payer_params)
+    @@transactions << transaction
+    @@point_balance = TransactionFacade.add_to_point_balance(transaction, @@point_balance)
   end
 
   def spend_points
     points = params[:points]
     sorted_transaction = TransactionFacade.sort_transactions(@@transactions)
-    x = TransactionFacade.spend_points(sorted_transaction, points)
-  end
+    spent_points = TransactionFacade.spend_points(sorted_transaction, points)
+    TransactionFacade.update_balance(@@point_balance, spent_points)
+    end
 
   def points_balance
-
+    @@point_balance
   end
 end
 

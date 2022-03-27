@@ -2,6 +2,7 @@ require 'rails_helper'
 RSpec.describe 'payer API' do
   it 'adds a single transactions for a specific payer and date' do
     @@transactions = []
+    @@point_balance = {}
     data =
     {
       "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"
@@ -16,6 +17,7 @@ RSpec.describe 'payer API' do
 
   it 'adds a single transactions for a specific payer and date' do
     @@transactions = []
+    @@point_balance = {}
     data = {"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
     data_2 = { "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" }
     data_3 = { "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" }
@@ -36,6 +38,7 @@ RSpec.describe 'payer API' do
 
   it 'adds a single transactions for a specific payer and date' do
     @@transactions = []
+    @@point_balance = {}
     data = {"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
     data_2 = { "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" }
     data_3 = { "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" }
