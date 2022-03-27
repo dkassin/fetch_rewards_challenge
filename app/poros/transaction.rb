@@ -4,6 +4,6 @@ class Transaction
   def initialize(data)
     @payer = data[:payer]
     @points = data[:points]
-    @time = DateTime.parse(data[:timestamp])
+    @time = data[:timestamp]
   end
 end

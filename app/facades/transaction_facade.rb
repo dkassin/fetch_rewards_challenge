@@ -48,4 +48,33 @@ class TransactionFacade
     end
     spent_hash
   end
+
+  def self.new_object(payer, points_left, time)
+    new_data = {}
+    new_data[:payer] = payer
+    new_data[:points] = points_left
+    new_data[:timestamp] = time
+    return new_data
+  end
+
+  def self.update_transactions(transactions, points)
+    points_started = points
+    points_used = 0
+    spent_transaction = []
+    counter = 0
+    transactions.each do |transaction|
+      counter += 1
+      if (points_started - points_used) <= transaction.points
+        points_left = (points_started - points_used)
+        left_over = transaction.points - points_left
+        points_used += points_left
+        new_data = TransactionFacade.new_object(transaction.payer, left_over, transaction.time.to_s)
+        transactions << TransactionFacade.add_transaction(new_data)
+        transactions.shift(counter)
+        return TransactionFacade.sort_transactions(transactions)
+      else
+        points_used += transaction.points
+      end
+    end
+  end
 end
