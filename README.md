@@ -201,7 +201,7 @@ At this point you should be taken to a page with an example JSON response for a 
 
 ### Attached is a zipfile of a postman collection for testing:
 
-[Sweater Weather.postman_collection.json.zip](https://github.com/dkassin/sweater_weather/files/8209596/Sweater.Weather.postman_collection.json.zip)
+[Fetch Rewards.postman_collection.json.zip](https://github.com/dkassin/fetch_rewards_challenge/files/8375083/Fetch.Rewards.postman_collection.json.zip)
 
 ## **Contributors** ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -221,4 +221,5 @@ At this point you should be taken to a page with an example JSON response for a 
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
 <!--
+
 
