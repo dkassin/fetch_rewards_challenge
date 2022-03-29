@@ -183,18 +183,16 @@ At this point you should be taken to a page with an example JSON response for a 
   Accept: application/json
 
 ```
-### example response for POST /api/v1/users/add_transactions
+### example successful response for POST /api/v1/users/add_transactions
 
 ![Screen Shot 2022-03-29 at 3 34 48 PM](https://user-images.githubusercontent.com/76177498/160711160-4021f645-f4c7-4e3a-9823-2bff15651d95.png)
 
-### example response for POST /api/v1/users/spend_points
-
-![Screen Shot 2022-03-29 at 3 15 48 PM](https://user-images.githubusercontent.com/76177498/160711318-43e8d382-0c0d-4455-bb62-2ff8ab854287.png)
-
-### example response for GET /api/v1/users/points_balance
-
+### example successful response for POST /api/v1/users/spend_points
 ![Screen Shot 2022-03-29 at 3 15 57 PM](https://user-images.githubusercontent.com/76177498/160711424-cba19d5f-3a1f-4987-a225-2957bd714677.png)
 
+### example successful response for GET /api/v1/users/points_balance
+
+![Screen Shot 2022-03-29 at 3 15 48 PM](https://user-images.githubusercontent.com/76177498/160711318-43e8d382-0c0d-4455-bb62-2ff8ab854287.png)
 
 ### Attached is a zipfile of a postman collection for testing:
 
