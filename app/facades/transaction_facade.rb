@@ -1,27 +1,18 @@
 class TransactionFacade
-  def self.add_transaction(params)
-      Transaction.new(params)
-  end
 
-  def self.add_to_point_balance(transaction, balance)
-    updated_balance = balance
-    if balance.has_key?(transaction.payer)
-      updated_balance[transaction.payer] += transaction.points
-    else
-      updated_balance[transaction.payer] = transaction.points
-    end
-    return updated_balance
-  end
-
-  def self.update_balance(point_balance, spent_points)
-    spent_points.each do |key, value|
-      point_balance[key] += value
-    end
-    return point_balance
+  def self.add_transactions(transactions, params)
+    transactions << Transaction.new(params)
+    @@transactions = TransactionFacade.sort_transactions(transactions)
   end
 
   def self.sort_transactions(transactions)
     transactions.sort_by {|transaction| transaction.time}
+  end
+
+  def self.spend_points_route(transactions,points)
+    spent_points = TransactionFacade.spend_points(transactions, points)
+    @@transactions  = TransactionFacade.update_transactions(transactions, points)
+    return spent_points
   end
 
   def self.spend_points(sorted_transaction, points)
@@ -49,6 +40,23 @@ class TransactionFacade
     spent_hash
   end
 
+  def self.update_transactions(transactions, points)
+    points_used = 0
+    transactions.each do |transaction|
+      if (points - points_used) <= transaction.points
+        points_left = (points - points_used)
+        points_used += points_left
+        new_data = TransactionFacade.new_object(transaction.payer, (points_left*-1), transaction.time.to_s)
+        transactions << Transaction.new(new_data)
+        return TransactionFacade.sort_transactions(transactions)
+      else
+        new_data = TransactionFacade.new_object(transaction.payer, (transaction.points*-1), transaction.time.to_s)
+        transactions << Transaction.new(new_data)
+        points_used += transaction.points
+      end
+    end
+  end
+
   def self.new_object(payer, points_left, time)
     new_data = {}
     new_data[:payer] = payer
@@ -57,24 +65,25 @@ class TransactionFacade
     return new_data
   end
 
-  def self.update_transactions(transactions, points)
-    points_started = points
-    points_used = 0
-    spent_transaction = []
-    counter = 0
+
+  def self.point_balance(transactions)
+    point_balance = {}
     transactions.each do |transaction|
-      counter += 1
-      if (points_started - points_used) <= transaction.points
-        points_left = (points_started - points_used)
-        left_over = transaction.points - points_left
-        points_used += points_left
-        new_data = TransactionFacade.new_object(transaction.payer, left_over, transaction.time.to_s)
-        transactions << TransactionFacade.add_transaction(new_data)
-        transactions.shift(counter)
-        return TransactionFacade.sort_transactions(transactions)
+      if point_balance.has_key?(transaction.payer)
+        point_balance[transaction.payer] += transaction.points
       else
-        points_used += transaction.points
+        point_balance[transaction.payer] = transaction.points
       end
     end
+    return point_balance
   end
+
+
+
+
+
+
+
+
+
 end
