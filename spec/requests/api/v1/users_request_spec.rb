@@ -13,7 +13,6 @@ RSpec.describe 'payer API' do
 
     expect(response).to be_successful
     expect(response.status).to eq(204)
-    expect(@@transactions.count).to eq(1)
   end
 
   it 'adds a single transactions for a specific payer and date' do
@@ -32,7 +31,6 @@ RSpec.describe 'payer API' do
       expect(response).to be_successful
       expect(response.status).to eq(204)
     end
-    expect(@@transactions.count).to eq(5)
   end
 
   it 'spends points on transaction and returns the spending points' do
@@ -55,6 +53,13 @@ RSpec.describe 'payer API' do
     post '/api/v1/users/spend_points', headers: headers, params: JSON.generate(spend)
 
     spend_response = JSON.parse(response.body, symbolize_names: true)
+
+    expected_response = [
+                          { "payer": "DANNON", "points": -100 },
+                          { "payer": "UNILEVER", "points": -200 },
+                          { "payer": "MILLER COORS", "points": -4700 }
+                        ]
+
     expect(response).to be_successful
     expect(response.status).to eq(200)
 
@@ -64,18 +69,11 @@ RSpec.describe 'payer API' do
       expect(spend).to have_key(:payer)
       expect(spend).to have_key(:points)
     end
-    
-    expect(spend_response[0][:payer]).to eq("DANNON")
-    expect(spend_response[0][:points]).to eq(-100)
 
-    expect(spend_response[1][:payer]).to eq("UNILEVER")
-    expect(spend_response[1][:points]).to eq(-200)
-
-    expect(spend_response[2][:payer]).to eq("MILLER COORS")
-    expect(spend_response[2][:points]).to eq(-4700)
+    expect(spend_response).to eq(expected_response)
     # This response not having comma's for the integers is the only thing not identical to the fetch_rewards_challenge
-    ## I was unable to get the integers to properly add commas.
-
+    ## I was unable to get the integers to properly add commas in rails and not be a string. The string conversion was
+    ### misintrepreting the value of the integer.
   end
 
   it 'A subsequent get request after a spend call returns a point balance response' do
@@ -102,18 +100,13 @@ RSpec.describe 'payer API' do
 
     point_balance = JSON.parse(response.body, symbolize_names: false)
 
+    expected_response = { "DANNON" => 1000, "UNILEVER" => 0, "MILLER COORS" => 5300}
+
     expect(response).to be_successful
     expect(response.status).to eq(200)
 
     expect(point_balance).to be_a Hash
 
-    expect(point_balance).to have_key("DANNON")
-    expect(point_balance["DANNON"]).to eq(1000)
-
-    expect(point_balance).to have_key("UNILEVER")
-    expect(point_balance["UNILEVER"]).to eq(0)
-
-    expect(point_balance).to have_key("MILLER COORS")
-    expect(point_balance["MILLER COORS"]).to eq(5300)
+    expect(point_balance).to eq(expected_response)
   end
 end
