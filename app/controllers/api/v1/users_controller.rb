@@ -13,10 +13,11 @@ class Api::V1::UsersController < ApplicationController
     spent_points = TransactionFacade.spend_points(@@transactions, points)
     @@point_balance = TransactionFacade.update_balance(@@point_balance, spent_points)
     @@transactions = TransactionFacade.update_transactions(@@transactions, points)
+    render json: SpendSerializer.spend_serializer(spent_points)
   end
 
   def points_balance
-    @@point_balance
+    render json: BalanceSerializer.point_balance_serializer(@@point_balance)
   end
 end
 
