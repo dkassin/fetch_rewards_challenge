@@ -183,21 +183,18 @@ At this point you should be taken to a page with an example JSON response for a 
   Accept: application/json
 
 ```
-### example response for GET /api/v1/forecast?location=denver,co
+### example response for POST /api/v1/users/add_transactions
 
-![Screen Shot 2022-03-08 at 1 55 43 PM](https://user-images.githubusercontent.com/76177498/157323619-74e0163a-0e6f-4e76-a144-756be78e5f3f.png)
+![Screen Shot 2022-03-29 at 3 34 48 PM](https://user-images.githubusercontent.com/76177498/160711160-4021f645-f4c7-4e3a-9823-2bff15651d95.png)
 
-### example response for GET /api/v1/backgrounds?location=denver,co
+### example response for POST /api/v1/users/spend_points
 
-![Screen Shot 2022-03-08 at 1 58 06 PM](https://user-images.githubusercontent.com/76177498/157323836-c2128fe8-91c9-4529-8b83-099dbcf47fd4.png)
+![Screen Shot 2022-03-29 at 3 15 48 PM](https://user-images.githubusercontent.com/76177498/160711318-43e8d382-0c0d-4455-bb62-2ff8ab854287.png)
 
-### example response for POST /api/v1/users & POST /api/v1/sessions
+### example response for GET /api/v1/users/points_balance
 
-![Screen Shot 2022-03-08 at 1 59 00 PM](https://user-images.githubusercontent.com/76177498/157323956-548ce1c1-edbd-4488-a4c5-4aaf8cf1a96d.png)
+![Screen Shot 2022-03-29 at 3 15 57 PM](https://user-images.githubusercontent.com/76177498/160711424-cba19d5f-3a1f-4987-a225-2957bd714677.png)
 
-### example response for POST /api/v1/road_trip
-
-![Screen Shot 2022-03-08 at 2 00 54 PM](https://user-images.githubusercontent.com/76177498/157324257-2d1cf20a-1cea-49be-8920-8b74966635a8.png)
 
 ### Attached is a zipfile of a postman collection for testing:
 
@@ -221,5 +218,8 @@ At this point you should be taken to a page with an example JSON response for a 
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
 <!--
+
+
+
 
 
