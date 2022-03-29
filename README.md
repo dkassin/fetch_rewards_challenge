@@ -15,6 +15,9 @@ spent.
 - Ruby Version 2.7.2
 - Rails Version 5.2.6
 
+### Database
+- Sqlite3
+
 ### Gems Utilized
 - RSpec 
 - Pry
@@ -143,7 +146,7 @@ If there are any errors, verify that bundler, Rails, and your ruby environment a
 Before using the web application you will need to setup your databases locally by running the following command
 
 ```shell
-$ rails db: {:drop, :create, :migrate, :seed}
+$ rails db: {:create, :migrate}
 ```
 
 
@@ -161,45 +164,24 @@ At this point you should be taken to a page with an example JSON response for a 
 
 ## Endpoints provided 
 ```
-
-- GET /api/v1/forecast?location=denver,co
-
-- GET /api/v1/backgrounds?location=denver,co
-
 ** For the following endpoints must send a JSON payload in the body of the request **
 
-** After properly registering through the following endpoint you will be given an api key **
+- POST /api/v1/users/add_transactions
+  Content-Type: application/json
+  Accept: application/json
+     
+● { "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
 
-- POST /api/v1/users
+- POST /api/v1/users/spend_points
   Content-Type: application/json
   Accept: application/json
 
-  {
-  "email": "whatever@example.com",
-  "password": "password",
-  "password_confirmation": "password"
-  }
+  { "points": 100 }
 
-- POST /api/v1/sessions
+- GET /api/v1/users/points_balance
   Content-Type: application/json
   Accept: application/json
 
-  {
-  "email": "whatever@example.com",
-  "password": "password"
-  }
-
-- POST /api/v1/road_trip
-  Content-Type: application/json
-  Accept: application/json
-
-  body:
-
-  {
-  "origin": "Denver,CO",
-  "destination": "Pueblo,CO",
-  "api_key": "jgn983hy48thw9begh98h4539h4"
-  }
 ```
 ### example response for GET /api/v1/forecast?location=denver,co
 
