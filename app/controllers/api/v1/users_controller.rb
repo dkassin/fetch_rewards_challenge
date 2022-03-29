@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def points_balance
-    balance = TransactionFacade.add_to_point_balance(@@transactions)
+    balance = TransactionFacade.point_balance(@@transactions)
     render json: BalanceSerializer.point_balance_serializer(balance)
   end
 end

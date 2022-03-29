@@ -5,33 +5,14 @@ class TransactionFacade
     @@transactions = TransactionFacade.sort_transactions(transactions)
   end
 
+  def self.sort_transactions(transactions)
+    transactions.sort_by {|transaction| transaction.time}
+  end
+
   def self.spend_points_route(transactions,points)
     spent_points = TransactionFacade.spend_points(transactions, points)
     @@transactions  = TransactionFacade.update_transactions(transactions, points)
     return spent_points
-  end
-
-  def self.add_to_point_balance(transactions)
-    point_balance = {}
-    transactions.each do |transaction|
-      if point_balance.has_key?(transaction.payer)
-        point_balance[transaction.payer] += transaction.points
-      else
-        point_balance[transaction.payer] = transaction.points
-      end
-    end
-    return point_balance
-  end
-
-  def self.update_balance(point_balance, spent_points)
-    spent_points.each do |key, value|
-      point_balance[key] += value
-    end
-    return point_balance
-  end
-
-  def self.sort_transactions(transactions)
-    transactions.sort_by {|transaction| transaction.time}
   end
 
   def self.spend_points(sorted_transaction, points)
@@ -59,14 +40,6 @@ class TransactionFacade
     spent_hash
   end
 
-  def self.new_object(payer, points_left, time)
-    new_data = {}
-    new_data[:payer] = payer
-    new_data[:points] = points_left
-    new_data[:timestamp] = time
-    return new_data
-  end
-
   def self.update_transactions(transactions, points)
     points_used = 0
     transactions.each do |transaction|
@@ -83,4 +56,34 @@ class TransactionFacade
       end
     end
   end
+
+  def self.new_object(payer, points_left, time)
+    new_data = {}
+    new_data[:payer] = payer
+    new_data[:points] = points_left
+    new_data[:timestamp] = time
+    return new_data
+  end
+
+
+  def self.point_balance(transactions)
+    point_balance = {}
+    transactions.each do |transaction|
+      if point_balance.has_key?(transaction.payer)
+        point_balance[transaction.payer] += transaction.points
+      else
+        point_balance[transaction.payer] = transaction.points
+      end
+    end
+    return point_balance
+  end
+
+
+
+
+
+
+
+
+
 end
