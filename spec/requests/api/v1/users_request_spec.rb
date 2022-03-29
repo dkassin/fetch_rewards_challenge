@@ -1,8 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'payer API' do
-  it 'adds a single transactions for a specific payer and date' do
+  before(:each) do
     @@transactions = []
-    @@point_balance = {}
+  end
+  it 'adds a single transactions for a specific payer and date' do
     data =
     {
       "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"
@@ -16,8 +17,6 @@ RSpec.describe 'payer API' do
   end
 
   it 'adds a single transactions for a specific payer and date' do
-    @@transactions = []
-    @@point_balance = {}
     data = {"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
     data_2 = { "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" }
     data_3 = { "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" }
@@ -37,8 +36,6 @@ RSpec.describe 'payer API' do
   end
 
   it 'spends points on transaction and returns the spending points' do
-    @@transactions = []
-    @@point_balance = {}
     data = {"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
     data_2 = { "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" }
     data_3 = { "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" }
@@ -67,7 +64,7 @@ RSpec.describe 'payer API' do
       expect(spend).to have_key(:payer)
       expect(spend).to have_key(:points)
     end
-
+    
     expect(spend_response[0][:payer]).to eq("DANNON")
     expect(spend_response[0][:points]).to eq(-100)
 
@@ -82,8 +79,6 @@ RSpec.describe 'payer API' do
   end
 
   it 'A subsequent get request after a spend call returns a point balance response' do
-    @@transactions = []
-    @@point_balance = {}
     data = {"payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z"}
     data_2 = { "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" }
     data_3 = { "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" }
