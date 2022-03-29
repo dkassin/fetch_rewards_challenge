@@ -76,6 +76,9 @@ RSpec.describe 'payer API' do
 
     expect(spend_response[2][:payer]).to eq("MILLER COORS")
     expect(spend_response[2][:points]).to eq(-4700)
+    # This response not having comma's for the integers is the only thing not identical to the fetch_rewards_challenge
+    ## I was unable to get the integers to properly add commas.
+
   end
 
   it 'A subsequent get request after a spend call returns a point balance response' do
